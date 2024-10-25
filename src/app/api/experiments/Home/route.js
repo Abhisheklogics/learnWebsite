@@ -1,14 +1,11 @@
-
 import { NextRequest, NextResponse } from 'next/server';
 import { Arduino } from '@/models/arduinomodels'; 
-
 import dbConnect from '@/dbconnect/databaseConnect';
 
 export async function GET(request) {
   await dbConnect(); 
 
   try {
-    
     const arduinodata = await Arduino.aggregate([
       {
         $project: {
@@ -22,14 +19,9 @@ export async function GET(request) {
       }
     ]);
 
- 
-
-    
-
-    return NextResponse.json({ arduinodata}, { status: 200 });
+    return NextResponse.json({ arduinodata }, { status: 200 });
   } catch (error) {
-  
-    console.error('Error fetching data:', error.message);
+    console.error('Error fetching data:', error); 
     return NextResponse.json({ message: 'Server error' }, { status: 500 });
   }
 }
