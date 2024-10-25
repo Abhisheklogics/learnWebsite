@@ -8,14 +8,15 @@ export default async function dbConnect() {
   }
 
   try {
-    console.log('Connecting to database at:', process.env.MONGO_URI);
-    await mongoose.connect(process.env.MONGO_URI, {
+    const dbUri = process.env.MONGO_URI; // Ensure this is correct
+    console.log('Connecting to database at:', dbUri);
+    await mongoose.connect(dbUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
     isConnected = true;
     console.log('Database connected');
   } catch (error) {
-    console.error('Database connection error:', error.message);
+    console.error('Database connection error:', error);
   }
 }
